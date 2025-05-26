@@ -21,20 +21,6 @@ jobs:
       - name: Start SUT
         run: java -jar ./artifacts/app-replan-delivery.jar &
 
-      - name: Wait for SUT to be ready
-        run: |
-          for i in {1..20}; do
-            if curl -s http://localhost:9999; then
-              echo "SUT is ready!"
-              break
-            fi
-            echo "Waiting for app on port 9999..."
-            sleep 1
-          done
-
-      - name: Check if JAR is running
-        run: ps aux | grep app-replan-delivery.jar || true
-
       - name: Build with Gradle
         run: ./gradlew test --info -Dselenide.headless=true
 
