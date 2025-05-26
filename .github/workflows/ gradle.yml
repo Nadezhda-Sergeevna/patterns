@@ -24,5 +24,6 @@ jobs:
       - name: Wait for SUT to be ready
         run: sleep 10
 
-      - name: Run tests with Gradle
-        run: ./gradlew test --info -Dselenide.headless=true
+      - name: Build with Gradle
+        run: ./gradlew test --info -Dselenide.headless=true -Dselenide.baseUrl=http://localhost:9999
+
