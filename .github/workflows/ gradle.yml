@@ -1,6 +1,6 @@
 name: Java CI with Gradle
 
-on: [push, pull_request]
+on: [ push, pull_request ]
 
 jobs:
   build:
@@ -24,5 +24,13 @@ jobs:
       - name: Wait for SUT to be ready
         run: sleep 10
 
-      - name: Build with Gradle
+      - name: Run tests with Gradle
         run: ./gradlew test --info -Dselenide.headless=true
+
+      - name: Stop SUT
+        if: always()
+        run: |
+          PID=$(lsof -ti:9999)
+          if [ -n "$PID" ]; then
+            kill -9 $PID
+          fi
